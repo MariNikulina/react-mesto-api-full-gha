@@ -1,0 +1,13 @@
+.header__button {
+  font-size: 18px;
+  line-height: 1.22;
+  font-weight: 400;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 0;
+  height: 22px;
+  margin-top: 6px;
+  margin-left: 24px;
+  text-decoration: none;
+}

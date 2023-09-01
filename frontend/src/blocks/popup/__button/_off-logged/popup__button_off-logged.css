@@ -1,0 +1,9 @@
+.popup__button_off-logged {
+  margin-top: 186px;
+  background-color: white;
+  color: black;
+}
+
+.popup__button_off-logged:hover {
+  background-color: white;
+}

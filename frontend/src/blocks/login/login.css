@@ -1,0 +1,8 @@
+.login {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 358px;
+  width: 100%;
+}

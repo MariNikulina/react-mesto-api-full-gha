@@ -1,0 +1,9 @@
+.popup__item_off-logged {
+  border-bottom: 2px solid rgba(204, 204, 204, 1);
+  color: white;
+}
+
+.popup__item_off-logged:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0 1000px black inset !important;
+}
