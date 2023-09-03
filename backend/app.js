@@ -33,7 +33,8 @@ mongoose
 
 const app = express();
 
-const ENV = "http://localhost:3005";
+// const ENV = "http://localhost:3005";
+const ENV = "mesto.marina.nomoredomainsicu.ru";
 
 app.use(
   cors({
