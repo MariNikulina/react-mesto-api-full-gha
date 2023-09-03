@@ -1,8 +1,6 @@
 class Api {
-  constructor(hostRequest, token, cohortId) {
+  constructor(hostRequest) {
     this._hostRequest = hostRequest;
-    this._token = token;
-    this._cohortId = cohortId;
   }
 
   _checkResponse = (res) => {
@@ -12,7 +10,7 @@ class Api {
   //1. Загрузка информации о пользователе с сервера
   getUserInfo() {
     //return fetch(this._hostRequest + this._cohortId + '/users/me', {
-      return fetch('http://localhost:3000/users/me', {
+      return fetch(this._hostRequest + '/users/me', {
       credentials: 'include',
       /*headers: {
         authorization: this._token
@@ -24,7 +22,7 @@ class Api {
   //2. Загрузка карточек с сервера
   getInitialCards() {
     //return fetch(this._hostRequest + this._cohortId + '/cards', {
-      return fetch('http://localhost:3000/cards', {
+      return fetch(this._hostRequest + '/cards', {
       credentials: 'include',
       headers: {
         authorization: this._token
@@ -36,7 +34,7 @@ class Api {
   //3. Редактирование профиля
   updateUserInfo({ name, about }) {
     //return fetch(this._hostRequest + this._cohortId + '/users/me', {
-      return fetch('http://localhost:3000/users/me', {
+      return fetch(this.__hostRequest + '/users/me', {
       credentials: 'include',
       method: 'PATCH',
       body: JSON.stringify({ name, about }),
@@ -51,7 +49,7 @@ class Api {
   //4. Добавление новой карточки
   createNewCard({ name, link }) {
     //return fetch(this._hostRequest + this._cohortId + '/cards', {
-      return fetch('http://localhost:3000/cards', {
+      return fetch(this._hostRequest + '/cards', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify({ name, link }),
@@ -66,7 +64,7 @@ class Api {
   //7. Удаление карточки
   deleteCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id, {
-      return fetch(`http://localhost:3000/cards/${id}`, {
+      return fetch(`this._hostRequest/cards/${id}`, {
       credentials: 'include',
       method: 'DELETE'
     })
@@ -76,7 +74,7 @@ class Api {
   //8. Постановка лайка
   likeCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id + '/likes', {
-      return fetch(`http://localhost:3000/cards/${id}/likes`, {
+      return fetch(`this._hostRequest/cards/${id}/likes`, {
       credentials: 'include',
       method: 'PUT'
     })
@@ -86,7 +84,7 @@ class Api {
   //8. Снятие лайка
   dislikeCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id + '/likes', {
-      return fetch(`http://localhost:3000/cards/${id}/likes`, {
+      return fetch(`this._hostRequest/cards/${id}/likes`, {
       credentials: 'include',
       method: 'DELETE'
     })
@@ -96,7 +94,7 @@ class Api {
   //9. Обновление аватара пользователя
   updateAvatar({ avatar }) {
     //return fetch(this._hostRequest + this._cohortId + '/users/me/avatar', {
-      return fetch('http://localhost:3000/users/me/avatar', {
+      return fetch(this._hostRequest + '/users/me/avatar', {
       credentials: 'include',
       method: 'PATCH',
       body: JSON.stringify({ avatar }),
@@ -113,4 +111,4 @@ class Api {
   }
 }
 
-export const api = new Api('https://mesto.nomoreparties.co/v1/', 'a85b9a75-4425-400b-b52a-bf2c9d807fec', 'cohort-66');
+export const api = new Api('api.mesto.marina.nomoredomainsicu.ru');
