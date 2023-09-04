@@ -24,9 +24,6 @@ class Api {
     //return fetch(this._hostRequest + this._cohortId + '/cards', {
       return fetch(this._hostRequest + '/cards', {
       credentials: 'include',
-      headers: {
-        authorization: this._token
-      }
     })
     .then(this._checkResponse())
   }
@@ -34,7 +31,7 @@ class Api {
   //3. Редактирование профиля
   updateUserInfo({ name, about }) {
     //return fetch(this._hostRequest + this._cohortId + '/users/me', {
-      return fetch(this.__hostRequest + '/users/me', {
+      return fetch(this._hostRequest + '/users/me', {
       credentials: 'include',
       method: 'PATCH',
       body: JSON.stringify({ name, about }),
@@ -64,7 +61,7 @@ class Api {
   //7. Удаление карточки
   deleteCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id, {
-      return fetch(`this._hostRequest/cards/${id}`, {
+      return fetch(this._hostRequest + '/cards/' + id, {
       credentials: 'include',
       method: 'DELETE'
     })
@@ -74,7 +71,7 @@ class Api {
   //8. Постановка лайка
   likeCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id + '/likes', {
-      return fetch(`this._hostRequest/cards/${id}/likes`, {
+      return fetch(this._hostRequest + '/cards/' + id + '/likes', {
       credentials: 'include',
       method: 'PUT'
     })
@@ -84,7 +81,7 @@ class Api {
   //8. Снятие лайка
   dislikeCard(id) {
     //return fetch(this._hostRequest + this._cohortId + '/cards/' + id + '/likes', {
-      return fetch(`this._hostRequest/cards/${id}/likes`, {
+      return fetch(this._hostRequest + '/cards/' + id + '/likes', {
       credentials: 'include',
       method: 'DELETE'
     })
