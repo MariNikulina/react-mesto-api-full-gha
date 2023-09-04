@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-62.84.115.43
+IP 62.84.115.43
 
 Frontend https://mesto.marina.nomoredomainsicu.ru
 
