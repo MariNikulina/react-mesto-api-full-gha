@@ -1,4 +1,5 @@
 export const BASE_URL = 'https://api.mesto.marina.nomoredomainsicu.ru';
+//export const BASE_URL = 'http://localhost:3000';
 
 export const checkResponse = (res) => {
   return res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)

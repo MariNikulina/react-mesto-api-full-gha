@@ -8,7 +8,10 @@ const ForbiddenError = require("../errors/forbidden-error");
 
 const getCards = (req, res, next) =>
   CardModel.find()
-    .then((card) => res.status(httpConstants.HTTP_STATUS_OK).send(card))
+    .then((card) => {
+      console.log(`cards: ${card}`);
+      res.status(httpConstants.HTTP_STATUS_OK).send(card);
+    })
     .catch(next);
 
 const createCard = (req, res, next) => {

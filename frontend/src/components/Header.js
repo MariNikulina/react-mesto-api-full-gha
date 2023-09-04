@@ -8,7 +8,6 @@ function Header({ handleLogin, userData }) {
   const navigate = useNavigate();
 
   let { email } = userData;
-  console.log(userData)
 
   function signOut() {
     localStorage.removeItem('token');

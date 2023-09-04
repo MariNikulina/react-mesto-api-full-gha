@@ -31,7 +31,6 @@ function App() {
   const [ userData, setUserData ] = React.useState({});
   const [ isRegister, setIsRegister ] = React.useState('');
   const navigate = useNavigate();
-console.log(`cards2: ${cards}`);
 
   const tokenCheck = () => {
     // const jwt = localStorage.getItem('token');
@@ -70,6 +69,7 @@ console.log(`cards2: ${cards}`);
 
     api.getInitialCards()
     .then((res) => {
+      console.log(`cards: ${res}`);
       setCards(res);
     })
     .catch((err) => {
