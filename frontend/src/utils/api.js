@@ -111,4 +111,4 @@ class Api {
   }
 }
 
-export const api = new Api('api.mesto.marina.nomoredomainsicu.ru');
+export const api = new Api('https://api.mesto.marina.nomoredomainsicu.ru');

@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.mesto.marina.nomoredomainsicu.ru';
+export const BASE_URL = 'https://api.mesto.marina.nomoredomainsicu.ru';
 
 export const checkResponse = (res) => {
   return res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
