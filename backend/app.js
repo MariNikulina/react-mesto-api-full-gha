@@ -51,6 +51,13 @@ app.use(bodyParser.json());
 // подключаем логгер запросов
 app.use(requestLogger);
 
+// автоматическое восстановление работы сервера при падении
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("Сервер сейчас упадёт");
+  }, 0);
+});
+
 app.post("/signin", validationSchemaSignIn, login);
 app.post("/signup", validationSchemaSignup, createUser);
 
