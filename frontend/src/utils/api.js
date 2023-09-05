@@ -108,5 +108,5 @@ class Api {
   }
 }
 
-//export const api = new Api('https://api.mesto.marina.nomoredomainsicu.ru');
-export const api = new Api('http://localhost:3000');
+export const api = new Api('https://api.mesto.marina.nomoredomainsicu.ru');
+//export const api = new Api('http://localhost:3000');
