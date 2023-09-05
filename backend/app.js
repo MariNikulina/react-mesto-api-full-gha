@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-require("dotenv").config({ path: "./config/.env" });
+require("dotenv").config();
 const { errors } = require("celebrate");
 const cookieParser = require("cookie-parser");
 const auth = require("./middlewares/auth");
@@ -33,7 +33,6 @@ mongoose
 
 const app = express();
 
-// const ENV = "http://localhost:3005";
 const ENV = "https://mesto.marina.nomoredomainsicu.ru";
 
 app.use(

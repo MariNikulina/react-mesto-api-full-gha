@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const SALT_ROUNDS = 10;
 const jwt = require("jsonwebtoken");
 
-const { JWT_SECRET = "secret" } = process.env;
+const { JWT_SECRET = "secret", NODE_ENV = "production" } = process.env;
 
 const UserModel = require("../models/user");
 
@@ -100,7 +100,6 @@ const updateProfile = (req, res, next) => {
     { new: true, runValidators: true },
   )
     .then((user) => {
-      console.log(user);
       if (!user) {
         return next(
           new NotFoundError("Пользователь по указанному _id не найден"),
@@ -167,9 +166,11 @@ const login = (req, res, next) => {
             new UnauthorizedError("Передан неверный логин или пароль"),
           );
         }
-        const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-          expiresIn: "7d",
-        });
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+          { expiresIn: "7d" },
+        );
         return res
           .status(httpConstants.HTTP_STATUS_OK)
           .cookie("jwt", token, { maxAge: 3600000, httpOnly: true })
