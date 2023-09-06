@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const SALT_ROUNDS = 10;
 const jwt = require("jsonwebtoken");
 
-const { JWT_SECRET = "secret", NODE_ENV = "production" } = process.env;
+const { JWT_SECRET } = require("../app.config");
 
 const UserModel = require("../models/user");
 
@@ -16,7 +16,7 @@ const UnauthorizedError = require("../errors/unauthorized-error");
 
 const getUsers = (req, res, next) =>
   UserModel.find()
-    .then((users) => res.status(httpConstants.HTTP_STATUS_OK).send(users))
+    .then((users) => res.send(users))
     .catch(next);
 
 const getUser = (req, res, next) => {
@@ -26,7 +26,7 @@ const getUser = (req, res, next) => {
       if (!user) {
         return next(new ForbiddenError("Попытка удалить чужую карточку"));
       }
-      return res.status(httpConstants.HTTP_STATUS_OK).send(user);
+      return res.send(user);
     })
     .catch(next);
 };
@@ -40,7 +40,7 @@ const getUserById = (req, res, next) => {
           new NotFoundError("Пользователь по указанному _id не найден"),
         );
       }
-      return res.status(httpConstants.HTTP_STATUS_OK).send(user);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === "CastError") {
@@ -52,14 +52,6 @@ const getUserById = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
-
-  if (!email || !password) {
-    return next(
-      new BadRequestError(
-        "Переданы некорректные данные при создании пользователя",
-      ),
-    );
-  }
 
   return bcrypt
     .hash(password, SALT_ROUNDS)
@@ -105,7 +97,7 @@ const updateProfile = (req, res, next) => {
           new NotFoundError("Пользователь по указанному _id не найден"),
         );
       }
-      return res.status(httpConstants.HTTP_STATUS_OK).send(user);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -133,7 +125,7 @@ const updateAvatar = (req, res, next) => {
           new NotFoundError("Пользователь по указанному _id не найден"),
         );
       }
-      return res.status(httpConstants.HTTP_STATUS_OK).send(user);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -150,10 +142,6 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return next(new BadRequestError("Email и password не могут быть пустыми"));
-  }
-
   return UserModel.findOne({ email })
     .select("+password")
     .then((user) => {
@@ -166,18 +154,19 @@ const login = (req, res, next) => {
             new UnauthorizedError("Передан неверный логин или пароль"),
           );
         }
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
-          { expiresIn: "7d" },
-        );
+        const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+          expiresIn: "7d",
+        });
         return res
-          .status(httpConstants.HTTP_STATUS_OK)
           .cookie("jwt", token, { maxAge: 3600000, httpOnly: true })
-          .send(user);
+          .send({ token: "token" });
       });
     })
     .catch(next);
+};
+
+const logout = (req, res) => {
+  res.clearCookie("jwt").send({ message: "Выход" });
 };
 
 module.exports = {
@@ -188,4 +177,5 @@ module.exports = {
   updateAvatar,
   login,
   getUser,
+  logout,
 };

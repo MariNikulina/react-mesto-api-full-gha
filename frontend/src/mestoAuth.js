@@ -28,6 +28,17 @@ export const authorize = (password, email) => {
     .then(checkResponse())
 }
 
+export const logout = () => {
+  return fetch(`${BASE_URL}/signout`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+    .then(checkResponse())
+}
+
 //проверить токен и получить данные пользователя
 export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {

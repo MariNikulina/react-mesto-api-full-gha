@@ -36,7 +36,6 @@ function Form({ name, buttonText, onSubmitHandler, inputs=[], isOpen, loggedIn }
 
   function onSubmit(e) {
     e.preventDefault();
-
     onSubmitHandler(formData);
 
     setFormData({});

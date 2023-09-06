@@ -23,6 +23,7 @@ function Login({ onLogin, loggedIn }) {
   ]
 
   function handleSubmit(formData) {
+    console.log(formData);
     onLogin(formData.sign, formData.identifier)
     .catch((err) => {
       console.log(`Ошибка: ${err.status}`)

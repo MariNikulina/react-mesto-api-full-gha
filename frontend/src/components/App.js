@@ -110,13 +110,11 @@ function App() {
   }
 
   function handleCardLike(card) {
-    console.log(`card: ${card.likes}`);
     const isLiked = card.likes.some(i => i === currentUser._id);
 
     if (isLiked) {
       api.dislikeCard(card._id)
       .then((newCard) => {
-        console.log(`newcard: ${newCard}`);
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch((err) => {
@@ -147,11 +145,9 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    console.log(`name: ${name}`);
     setIsLoading(true);
     api.updateUserInfo({ name, about })
     .then(({ name, about, avatar, _id }) => {
-      console.log(_id);
         setCurrentUser({ name: name, about: about, avatar: avatar, _id: _id });
     })
     .then((res) => {
@@ -170,13 +166,9 @@ function App() {
     setIsLoading(true);
     api.updateAvatar({ avatar })
     .then((newUser) => {
-      console.log(newUser)
-
       setCurrentUser({ name: newUser.name, about: newUser.about, avatar: newUser.avatar, _id: newUser._id });
-
     })
     .then((res) => {
-      console.log(currentUser)
       closeAllPopups();
     })
     .catch((err) => {
@@ -204,7 +196,9 @@ function App() {
     });
   }
 
-  function handleLoginFalse() {
+  function handleLogout() {
+    mestoAuth.logout();
+    setUserData({});
     setLoggedIn(false);
   }
 
@@ -216,11 +210,7 @@ function App() {
   function onLogin(sign, identifier) {
 
     return  mestoAuth.authorize(sign, identifier)
-    .then((data) => {
-      // console.log(data);
-      // console.log(document.cookie);
-
-      if (data._id) {
+    .then((token) => {
         const userData = {
           email: identifier
         };
@@ -229,13 +219,11 @@ function App() {
         // console.log(`token: ${data.token}`);
         setLoggedIn(true);
         navigate('/', {replace: true});
-      }
     })
   }
 
   function onRegister(password, email) {
     return mestoAuth.register( password, email ).then((res) => {
-      console.log(`reg: ${res}`)
       if (res) {
         setIsRegister('ok');
         navigate('/signin', {replace: true});
@@ -247,7 +235,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="container">
-        <Header handleLogin={handleLoginFalse} userData={userData} />
+        <Header handleLogin={handleLogout} userData={userData} />
         <Routes>
           <Route path="/signup" //path="/sign-up"
           element={<Register

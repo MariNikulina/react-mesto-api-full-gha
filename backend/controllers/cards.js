@@ -8,7 +8,7 @@ const ForbiddenError = require("../errors/forbidden-error");
 
 const getCards = (req, res, next) =>
   CardModel.find()
-    .then((card) => res.status(httpConstants.HTTP_STATUS_OK).send(card))
+    .then((card) => res.send(card))
     .catch(next);
 
 const createCard = (req, res, next) => {
@@ -40,7 +40,7 @@ const deleteCardById = (req, res, next) => {
         return next(new ForbiddenError("Попытка удалить чужую карточку"));
       }
       return CardModel.findByIdAndRemove(cardId).then((cardForRemove) =>
-        res.status(httpConstants.HTTP_STATUS_OK).send(cardForRemove),
+        res.send(cardForRemove),
       );
     })
     .catch((err) => {
@@ -61,8 +61,7 @@ const putLikeCardById = (req, res, next) =>
       if (!card) {
         return next(new NotFoundError("Передан несуществующий _id карточки"));
       }
-      console.log(card);
-      return res.status(httpConstants.HTTP_STATUS_OK).send(card);
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -88,7 +87,7 @@ const deleteLikeCardById = (req, res, next) =>
       if (!card) {
         return next(new NotFoundError("Передан несуществующий _id карточки"));
       }
-      return res.status(httpConstants.HTTP_STATUS_OK).send(card);
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
