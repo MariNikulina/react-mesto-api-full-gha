@@ -15,10 +15,11 @@ router.post("/signin", validationSchemaSignIn, login);
 // Защита API авторизацией
 router.use(auth);
 
-router.get("/signout", logout);
-
 router.use("/", userRouter);
 router.use("/", cardRouter);
+
+router.get("/signout", logout);
+
 router.use("*", (req, res, next) => {
   next(new NotFoundError("Страница не найдена"));
 });
