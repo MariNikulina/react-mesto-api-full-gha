@@ -9,7 +9,7 @@ const errorHandler = require("./middlewares/error-handler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const { PORT, MONGODB_URL } = require("./app.config");
 
-const router = require("./routes");
+const routers = require("./routes");
 
 mongoose
   .connect(MONGODB_URL, {
@@ -45,7 +45,7 @@ app.get("/crash-test", () => {
   }, 0);
 });
 
-app.use(router);
+app.use(routers);
 
 // подключаем логгер ошибок
 app.use(errorLogger);
