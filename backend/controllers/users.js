@@ -159,7 +159,7 @@ const login = (req, res, next) => {
         });
         return res
           .cookie("jwt", token, { maxAge: 3600000, httpOnly: true })
-          .send({ token: "token" });
+          .send({ jwt: "token" });
       });
     })
     .catch(next);
